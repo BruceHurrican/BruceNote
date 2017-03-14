@@ -9,11 +9,17 @@ TODO
 - [x] add lib cube
 - [ ] add lib fresco
 - [x] add lib universal-image-loader
-- [ ] add lib picasso
+- [x] add lib picasso
 
 
 ### 参考资料
 
 [glide](https://github.com/bumptech/glide)
+
 [cube](https://github.com/liaohuqiu/cube-sdk)
+
 [UIL](https://github.com/nostra13/Android-Universal-Image-Loader)
+
+[Picasso](https://github.com/square/picasso/blob/master/picasso-sample/src/main/java/com/example/picasso/SquaredImageView.java)
+
+[volley](https://github.com/google/volley)

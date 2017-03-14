@@ -52,7 +52,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.bumptech.glide.Glide.with;
 
 /**
  * Created by BruceHurrican on 17/3/10.
@@ -80,7 +79,7 @@ public class GlideActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_load_local:
-                with(GlideActivity.this).load(R.mipmap.ic_loading).into(ivImg);
+                Glide.with(GlideActivity.this).load(R.mipmap.ic_loading).into(ivImg);
                 break;
             case R.id.btn_load_url:
                 Glide.with(GlideActivity.this)

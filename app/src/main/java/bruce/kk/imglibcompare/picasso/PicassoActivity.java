@@ -27,13 +27,23 @@ package bruce.kk.imglibcompare.picasso;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.PixelFormat;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bruceutils.base.BaseActivity;
+import com.bruceutils.utils.logdetails.LogDetails;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
+import bruce.kk.imglibcompare.ImgConstant;
 import bruce.kk.imglibcompare.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -65,10 +75,62 @@ public class PicassoActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_load_local:
+                Picasso.with(PicassoActivity.this)
+                       .load(R.mipmap.ic_loading)
+                       .into(ivImg);
                 break;
             case R.id.btn_load_url:
+                // 方法一
+//                Picasso.with(PicassoActivity.this)
+//                       .load(ImgConstant.IMG_URL)
+//                       .resize(80, 80)
+//                       .error(R.mipmap.ic_failed)
+//                       .into(ivImg);
+                // 方法二
+                Picasso.Builder builder = new Picasso.Builder(PicassoActivity.this);
+                builder.listener(new Picasso.Listener() {
+                    @Override
+                    public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+                        LogDetails.d("加载图片失败 exception: " + exception);
+                    }
+                });
+                builder.build()
+                       .load(ImgConstant.IMG_URL)
+//                       .load("http://dd.com/ssss.jpg")
+                       .placeholder(R.mipmap.ic_loading2)
+                       .error(R.mipmap.ic_failed)
+                       // 通过 tansform 设置圆角图片
+                       .transform(new Transformation() {
+                           @Override
+                           public Bitmap transform(Bitmap source) {
+                               RoundedBitmapDrawable drawable = RoundedBitmapDrawableFactory.create(getResources(), source);
+                               drawable.setCornerRadius(50);
+//                             drawable.setCircular(true); // 设置圆形头像使用
+                               // 获取 宽高
+                               int width = drawable.getIntrinsicWidth();
+                               int height = drawable.getIntrinsicHeight();
+                               // 获取颜色格式
+                               Bitmap.Config config = drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565;
+                               // 建立对应 bitmap
+                               Bitmap bitmap = Bitmap.createBitmap(width, height, config);
+                               if (bitmap != source) {
+                                   source.recycle();
+                               }
+                               Canvas canvas = new Canvas(bitmap);
+                               drawable.setBounds(0, 0, width, height);
+                               drawable.draw(canvas);
+                               return bitmap;
+                           }
+
+                           @Override
+                           public String key() {
+                               return "rounded";
+                           }
+                       })
+                       .into(ivImg);
                 break;
             case R.id.btn_load_cancel:
+                Picasso.with(PicassoActivity.this).cancelRequest(ivImg);
                 break;
         }
     }
