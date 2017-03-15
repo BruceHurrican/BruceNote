@@ -7,10 +7,11 @@ TODO
 - [x] add lib glide
 - [x] add lib volley
 - [x] add lib cube
-- [ ] add lib fresco
+- [x] add lib fresco
 - [x] add lib universal-image-loader
 - [x] add lib picasso
-
+- [ ] 内存占用比较
+- [ ] 请求响应时间比较
 
 ### 参考资料
 
@@ -23,3 +24,5 @@ TODO
 [Picasso](https://github.com/square/picasso/blob/master/picasso-sample/src/main/java/com/example/picasso/SquaredImageView.java)
 
 [volley](https://github.com/google/volley)
+
+[Fresco](https://github.com/facebook/fresco)
