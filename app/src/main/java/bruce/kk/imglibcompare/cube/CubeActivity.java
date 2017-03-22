@@ -34,8 +34,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bruceutils.base.BaseActivity;
+import com.bruceutils.utils.logdetails.LogDetails;
 
 import bruce.kk.imglibcompare.ImgConstant;
+import bruce.kk.imglibcompare.MemoryInfoUtil;
 import bruce.kk.imglibcompare.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -72,6 +74,7 @@ public class CubeActivity extends BaseActivity {
         setTitle("Cube");
         Cube.onCreate(getApplication());
         imageLoader = ImageLoaderFactory.create(CubeActivity.this);
+        getMemoAvailable();
     }
 
     @OnClick({R.id.btn_load_local, R.id.btn_load_url, R.id.btn_load_cancel})
@@ -80,6 +83,7 @@ public class CubeActivity extends BaseActivity {
             case R.id.btn_load_local:
 //                ivCube.setImageResource(R.mipmap.ic_failed); // 没有效果
                 ivCube.setBackgroundResource(R.mipmap.ic_failed);
+                getMemoAvailable();
                 break;
             case R.id.btn_load_url:
                 // 自定义监听器
@@ -111,11 +115,17 @@ public class CubeActivity extends BaseActivity {
                 defaultImageLoadHandler.setImageRounded(true, 30);
                 imageLoader.setImageLoadHandler(defaultImageLoadHandler);
                 ivCube.loadImage(imageLoader, ImgConstant.IMG_URL);
+                getMemoAvailable();
                 break;
             case R.id.btn_load_cancel:
                 ivCube.clearDrawable();
                 break;
         }
+    }
+
+    private void getMemoAvailable() {
+        showToastLong("可用内存: " + MemoryInfoUtil.memoryAvailableInfo(CubeActivity.this));
+        LogDetails.i("可用内存: " + MemoryInfoUtil.memoryAvailableInfo(CubeActivity.this));
     }
 
     @Override

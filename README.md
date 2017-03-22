@@ -10,8 +10,6 @@ TODO
 - [x] add lib fresco
 - [x] add lib universal-image-loader
 - [x] add lib picasso
-- [ ] 内存占用比较
-- [ ] 请求响应时间比较
 
 ### 参考资料
 
