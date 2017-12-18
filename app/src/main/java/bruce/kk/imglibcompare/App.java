@@ -27,9 +27,19 @@ package bruce.kk.imglibcompare;
 
 import com.bruceutils.base.BaseApplication;
 
+import io.flowup.FlowUp;
+
 /**
  * Created by BruceHurrican on 17/3/10.
  */
 
 public class App extends BaseApplication {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        FlowUp.Builder.with(this)
+                .apiKey("")
+                .forceReports(BuildConfig.DEBUG)
+                .start();
+    }
 }

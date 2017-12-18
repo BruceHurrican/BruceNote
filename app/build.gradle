@@ -58,6 +58,9 @@ dependencies {
     compile(name: 'BruceUtils', ext: 'aar')
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'in.srain.cube:cube-sdk:1.0.44@aar'
+    // ------- 性能监控 相关 ---------
+    compile 'io.flowup:android-sdk:1.0.0'
+    testCompile 'io.flowup:android-sdk-no-op:1.0.0'
     // ------- fresco 相关 ---------
     compile 'com.facebook.fresco:fresco:1.1.0'
     compile 'com.facebook.fresco:animated-gif:1.1.0'
